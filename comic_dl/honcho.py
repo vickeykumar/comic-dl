@@ -158,7 +158,7 @@ class Honcho(object):
                                     print_index=print_index)
             return 0
         elif domain in ["www.readcomicbooksonline.net", "readcomicbooksonline.net", "www.readcomicbooksonline.org",
-                        "readcomicbooksonline.org"]:
+                        "readcomicbooksonline.org", "www.readcomicsonline.me", "readcomicsonline.me"]:
             readComicBooksOnline.ReadComicBooksOnline(manga_url=comic_url, logger=logging,
                                                       current_directory=current_directory, sorting_order=sorting,
                                                       log_flag=log_flag, download_directory=download_directory,

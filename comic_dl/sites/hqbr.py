@@ -88,7 +88,7 @@ class Hqbr(object):
         else:
             all_links = all_links
         if not all_links:
-            print("Couldn't Find the chapter list")
+            print("hqbr: Couldn't Find the chapter list")
             return 1
         # all_links.pop(0) # Because this website lists the next chapter, which is NOT available.
 
