@@ -101,7 +101,16 @@ class GlobalFunctions(object):
 
         pbar.update()
 
-    def conversion(self, directory_path, conversion, keep_files, comic_name, chapter_number):
+    def send2kindle(self, filename):
+        print("send2kindle: ",filename)
+        main_directory = str(filename).split(os.sep)
+        main_directory.pop()
+        output_directory = str(os.sep.join(main_directory)) + os.sep + ".." + os.sep + ".." + os.sep + "send_to_kindle" + os.sep
+        if not os.path.isdir(output_directory):
+            os.mkdir(output_directory, 0755)
+        shutil.copy(filename,output_directory)
+
+    def conversion(self, directory_path, conversion, keep_files, comic_name, chapter_number, send_to_kindle=True):
         main_directory = str(directory_path).split(os.sep)
         main_directory.pop()
         converted_file_directory = str(os.sep.join(main_directory)) + os.sep
@@ -121,6 +130,8 @@ class GlobalFunctions(object):
                     with open(pdf_file_name, "wb") as f:
                         f.write(img2pdf.convert(im_files))
                         print("Converted the file to pdf...")
+                if send_to_kindle:
+                    self.send2kindle(pdf_file_name+".pdf")
             except Exception as FileWriteError:
                 print("Couldn't write the pdf file...")
                 print(FileWriteError)
@@ -143,6 +154,8 @@ class GlobalFunctions(object):
                 else:
                     shutil.make_archive(cbz_file_name, 'zip', directory_path, directory_path)
                     os.rename(str(cbz_file_name) + ".zip", (str(cbz_file_name)+".zip").replace(".zip", ".cbz"))
+                if send_to_kindle:
+                    self.send2kindle(cbz_file_name+".cbz")
             except Exception as CBZError:
                 print("Couldn't write the cbz file...")
                 print(CBZError)

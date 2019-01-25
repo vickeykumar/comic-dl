@@ -54,7 +54,6 @@ class ReadComicBooksOnline():
         last_page_number = int(str(re.search(r'</select> of (.*?) <a', str(source)).group(1)).strip())
         img_list = []
         img_list.append(first_image_link)
-
         for page_number in range(1, last_page_number):
             image_number = first_image_link[-7:].replace(".jpg", "").replace(".png", "").strip()
             image_number_string = str(int(image_number) + 1).zfill(3) + ".jpg"
