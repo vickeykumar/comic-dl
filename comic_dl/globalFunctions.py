@@ -131,7 +131,7 @@ class GlobalFunctions(object):
                         f.write(img2pdf.convert(im_files))
                         print("Converted the file to pdf...")
                 if send_to_kindle:
-                    self.send2kindle(pdf_file_name+".pdf")
+                    self.send2kindle(pdf_file_name)
             except Exception as FileWriteError:
                 print("Couldn't write the pdf file...")
                 print(FileWriteError)
