@@ -87,28 +87,31 @@ class ReadComicBooksOnline():
     def full_series(self, comic_url, comic_name, sorting, download_directory, chapter_range, conversion, keep_files):
         source, cookies = globalFunctions.GlobalFunctions().page_downloader(manga_url=comic_url)
         all_links = []
+        #print("source: ",source)
         chap_holder_div = source.find_all('div', {'id': 'chapterlist'})
-        # print(comic_name)
+        print(comic_name)
+        #print("div:",chap_holder_div)
         for single_node in chap_holder_div:
             x = single_node.findAll('a')
             for a in x:
                 all_links.append(str(a['href']).strip())
+        print(all_links,"chap_range",chapter_range)
         if chapter_range != "All":
             # -1 to shift the episode number accordingly to the INDEX of it. List starts from 0 xD!
             starting = int(str(chapter_range).split("-")[0]) - 1
-
+            starting = 0
             if str(chapter_range).split("-")[1].isdigit():
                 ending = int(str(chapter_range).split("-")[1])
             else:
                 ending = len(all_links)
 
             indexes = [x for x in range(starting, ending)]
-
+            print("indexes:",indexes,starting,ending)
             all_links = [all_links[x] for x in indexes][::-1]
         else:
             all_links = all_links
         if not all_links:
-            print("Couldn't Find the chapter list")
+            print("readcomic: Couldn't Find the chapter list")
             return 1
         # all_links.pop(0) # Because this website lists the next chapter, which is NOT available.
 
